@@ -5,32 +5,41 @@
 	practica = {1}{Práctica 1: Product Backlog},
 }
 
-\usepackage{lipsum}
+\usepackage{lipsum} % Temporal de pruebas
 
 % ==============================================================================
+
 \begin{document}
 
-%\portada{}
-%\indice{}
-%\bloque{Hola mundo}
-%\ejercicio{Hola mundo}
-%\apartado{Hola mundo}
-
 \ProductBacklog{%
-	table row = { hola },
-	element = { adios },
-	%element,
-	%	identificador = {ABC123},
-	%	valor cliente = {2},
-	%	esfuerzo      = {5},
-	%	iteracion     = {1},
-	%	prioridad     = {3},
-	%	enunciado     = {%
-	%		\lipsum[1-1]
-	%	},
-	%	comentarios = {%
-	%		\lipsum[2-2]
-	%	},
+	add element = {%
+		identificador = {ABC123},
+		valor cliente = {2},
+		esfuerzo      = {5},
+		iteracion     = {1},
+		prioridad     = {3},
+		enunciado     = {%
+			\lipsum[1-1]
+		},
+		comentarios = {%
+			\lipsum[2-2]
+		},
+	},
+	add element = {%
+		identificador = {ABC123},
+		valor cliente = {1},
+		esfuerzo      = {2},
+		iteracion     = {3},
+		prioridad     = {4},
+		enunciado     = {%
+			Aqui pueden
+			ir varias lineas
+			de texto normales.
+		},
+		comentarios = {%
+			O quiza una linea super larga, pero mejor casi que no.
+		},
+	},
 }
 
 \end{document}
