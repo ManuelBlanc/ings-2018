@@ -1,0 +1,11 @@
+
+# Carpeta de salida de latex
+out/
+
+# Archivos comprimidos binarios
+*.tgz
+*.zip
+
+# Ficheros generados por editores de texto
+*~
+.*.swp
