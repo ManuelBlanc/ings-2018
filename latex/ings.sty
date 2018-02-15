@@ -1,0 +1,80 @@
+%% Definicion del paquete
+\ProvidesPackage{ings}[2018/02/11]
+\typeout{Package `ings', 1.0, <2018/02/11>}
+
+% Imagenes
+\graphicspath{{../latex/img/}}
+
+\CabeceraAlias{bloque}{section}[contador=\arabic]
+\CabeceraAlias{ejercicio}{subsection}[%
+  etiqueta    = {Ejercicio \thesubsection:},
+  %forma      = {runin},
+  %formato    = {\normalfont\bfseries},
+  separacion  = 0.4em,
+  %despues    = {},
+  contador    = {\arabic}]
+\CabeceraAlias{apartado}{subsubsection}[etiqueta={\thesubsubsection.},contador={\alph}]
+\CabeceraAlias{pregunta}{paragraph}
+
+% Definición del título
+\ConfigurarDocumento{%
+  universidad = UAM,
+  grado       = 3º del Grado en Ingeniería Informática,
+  asignatura  = Ingeniería del Software,
+  curso       = 2017-18,
+  %practica    = {1}{ ... }, % Se define en cada tex
+  autores     = {M. Blanc, L.C. Jariego, P. Marcos, F. Martin, D. Nevado},
+}
+
+\RequirePackage{booktabs}
+
+%% \ProductBacklog. Recibe un unico argumento, un conjunto de
+%% claves de pgfkeys que tendra varias veces el comando `add element`
+\NewDocumentCommand{\ProductBacklog}{O{}m}{%
+  \pgfqkeys{/ings/backlog}{%
+    %%
+    %% Principio de la tabla
+    %%
+    table start/.code = {%
+      \tabular{lp{2.5cm}cp{2.5cm}} % 7 columnas de tipo `l`
+        \toprule
+        \textbf{Id.}          &
+        \textbf{Enunciado}    &
+        \textbf{Valoraciones} &
+        \textbf{Comentarios}  \\
+        \midrule
+    },
+    %%
+    %% Fin de la tabla
+    %%
+    table end/.code = {%
+      %\bottomrule
+      \endtabular
+    },
+    %%
+    %% Generacion de filas
+    %%
+    identificador/.initial  = {\textcolor{red}{ERR identificador}},
+    enunciado/.initial      = {\textcolor{red}{ERR enunciado}},
+    valor cliente/.initial  = {\textcolor{red}{ERR valor cliente}},
+    esfuerzo/.initial       = {\textcolor{red}{ERR esfuerzo}},
+    iteracion/.initial      = {\textcolor{red}{ERR iteracion}},
+    prioridad/.initial      = {\textcolor{red}{ERR prioridad}},
+    comentarios/.initial    = {\textcolor{red}{ERR comentarios}},
+    add element/.code = {%
+         \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/identificador}%
+      &  \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/enunciado}%
+      &  \shortstack[l]{
+              Valor cliente \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/valor cliente}%
+           \\ Esfuerzo      \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/esfuerzo}%
+           \\ Iteración     \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/iteracion}%
+           \\ Prioridad     \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/prioridad}%
+          }
+      &  \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/comentarios}%
+      \\
+    },
+    table start,
+    #1,
+    table end,
+  }
+}
