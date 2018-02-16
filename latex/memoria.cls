@@ -1,14 +1,14 @@
 %
 % memoria.cls
-% (c) 2014-2018  M. Blanc
+% Aqui antes habia un copyleft pero lo he quitado porque queda feo.
 %
 
 %% Definicion del paquete
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{memoria}[2018/02/11 v1.7 Clase para memorias]
 
-%% Basamos esta clase en articulo
-\LoadClass[a4paper, 12pt]{article}
+%% Extendemos article y le pasamos las opciones
+\LoadClass[a4paper]{article}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions
 
@@ -30,7 +30,7 @@
 \RequirePackage{environ}                   	% Declaracion de environments mejorada
 \RequirePackage{tabu}                   	% Tablas de verdad
 
-% Datos sobre el articulo
+%% Parametros globales del documento
 \pgfqkeys{/memoria}{
 	universidad/.store in	= \@universidad,
 	grado/.store in      	= \@grado,
@@ -46,48 +46,29 @@
 	autores    	= {<AUTORES>},
 	practica   	= {0}{PRACTICA},
 }
-\NewDocumentCommand{\ConfigurarDocumento}{m}{\pgfqkeys{/memoria}{#1}}
+\NewDocumentCommand{\ConfigurarDocumento}{m}{%
+	\pgfqkeys{/memoria}{#1}%
+	\title{\@practica \\ \@asignatura}%
+	\author{\@autores}%
+}
 
-\title{\@practica \\ \@asignatura}
-\author{\@autores}
-
-% Para graficos
+%% Graficos
 \graphicspath{ {img/} }
 \newcommand{\imagen}[2][1]{\includegraphics[width=#1\textwidth]{#2}}
 
-% Y para tablas
-\newenvironment{grupotablas}{%
-	\NewEnviron{tabla}[2][]{%
-		\begin{subtable}{1\textwidth}
-			\centering
-			\begin{tabu}{##2}
-				\toprule
-				\BODY
-				\bottomrule
-			\end{tabu}
-			\caption{##1}
-		\end{subtable}
-	}%
-	\begin{table}[h]
-}{%
-	\end{table}
-}
-
-% Utiles de tablas
+%% Utiles de tablas
 \newcommand{\cabeceratabla}[1]{\rowfont[c]{\bfseries}#1\midrule}
 \newcommand{\celdadoble}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
-
-% Configuracion de los titulos
+%% Colores para los titulos
 \definecolor{color_barra1}{RGB}{65,126,195}
 \definecolor{color_cabecera1}{RGB}{13,51,96}
 \definecolor{color_cabecera2}{RGB}{42,92,150}
 
-\def\expandonce#1{\unexpanded\expandafter{#1}}
-
+%% Macro para redefinir un nivel de titulo
 \NewDocumentCommand{\CabeceraConfigurar}{mm}{
 	% Procesamiento de las opciones
 	\pgfqkeys{/memoria/#1}{#2}
@@ -109,6 +90,7 @@
 		[\pgfkeysvalueof{/memoria/#1/despues}]   	% after
 }
 
+%% Macro para definir un alias de un nivel, y opcionalmente redefinirlo
 \NewDocumentCommand{\CabeceraAlias}{mmo}{
 	% Comando de cabecera
 	%\expandafter\edef\csname#1\endcsname##1{%
@@ -126,9 +108,10 @@
 	\IfValueT{#3}{\CabeceraConfigurar{#2}{#3}}
 }
 
-
+%% Maxima profundidad en la tabla de contenidos
 \setcounter{tocdepth}{2}
 
+%% Configuramos cada nivel con la configuracion por defecto (pero la cargamos al sistema)
 \CabeceraConfigurar{section}{%
 	forma/.initial     	= {hang},
 	contador/.initial  	= {\Roman},
@@ -169,7 +152,7 @@
 	despues/.initial   	= {},
 }
 
-% Headers & footers
+%% Pie y cabecera
 \RequirePackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -179,14 +162,13 @@
 \chead{\shortstack[r]{\normalfont\Large\bfseries \@asignatura \\ \@grado{}}}
 \rhead{\shortstack[l]{
 \color{color_barra1}\bfseries Curso \@curso         	\\
-\color{color_barra1}\bfseries Práctica \@numpractica	%%
-}}
-\lfoot{\qquad\Roman{page}}
+\color{color_barra1}\bfseries Práctica \@numpractica	}}
+\lfoot{\qquad\thepage}
 \rfoot{\@autores}
 \renewcommand{\headrulewidth}{1pt}
 \renewcommand{\footrulewidth}{1pt}
 
-% Portada
+%% Portada
 \newcommand{\portada}[1]{%
 	\begin{titlepage}
 	\begin{center}
@@ -202,7 +184,7 @@
 	%\thispagestyle{empty}
 }
 
-% Inice
+%% Indice
 \newcommand{\indice}{%
 	\newpage\tableofcontents
 	\pagenumbering{roman}

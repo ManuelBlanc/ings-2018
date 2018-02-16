@@ -1,5 +1,5 @@
 
-# Ingeniería del Software. Prácticas del curso 2017-2018
+# Ingeniería del Software. Paácticas del curso 2017-2018
 
 # Estructura del proyecto
 
@@ -9,7 +9,7 @@ todos los fuentes LaTeX.
 
 # Como compilar los documentos
 
-Para compilar los documentos, navega a
+Para compilar los documentos, navega a el directorio de una practica y ejecuta:
 
     latexmk [fichero.tex]
 
@@ -20,4 +20,5 @@ Si se omite el nombre del documento, se compilaran todos.
 - Manuel Blanc
 - Luis Carlos Jariego
 - Pablo Marcos
+- Fernando Martin
 - David Nevado

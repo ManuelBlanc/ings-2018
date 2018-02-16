@@ -1,45 +1,116 @@
 \documentclass[a4paper, 12pt, spanish]{memoria}
+% Preambulo
 
 \usepackage{ings}
 \ConfigurarDocumento{
-	practica = {1}{Práctica 1: Product Backlog},
+    practica = {1}{Práctica 1: Product Backlog},
 }
-
-% ==============================================================================
 
 \begin{document}
+% No tocar por encima de esta linea al menos que sepas que estas haciendo.
+% vvv========================================================================vvv
 
-\ProductBacklog{%
-	add element = {%
-		identificador = {ABC123},
-		valor cliente = {2},
-		esfuerzo      = {5},
-		iteracion     = {1},
-		prioridad     = {3},
-		enunciado     = {%
-			Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-		},
-		comentarios = {%
-			Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-		},
-	},
-	add element = {%
-		identificador = {ABC123},
-		valor cliente = {1},
-		esfuerzo      = {2},
-		iteracion     = {3},
-		prioridad     = {4},
-		enunciado     = {%
-			Aqui pueden
-			ir varias lineas
-			de texto normales.
-		},
-		comentarios = {%
-			O quiza una linea super larga, pero mejor casi que no.
-		},
-	},
-}
+\section*{Product Backlog}
 
+%% Formatos validos: list, tikz, table
+\ProductBacklog[format=table]{%
+{%
+    identificador = S01.01,
+    enunciado     = {Como director de proyecto, ingeniero o cliente quiero autenticarme en el sistema para acceder a mis opciones y mis proyectos.},
+    valor cliente = 5,
+    esfuerzo      = {2}{3},
+    iteracion     = 1,
+    prioridad     = 5,
+    comentarios   = {Funcionalidad básica de la aplicación.},
+},{%
+    identificador = S01.02,
+    enunciado     = {Como director de proyecto quiero poder crear proyectos y asignar horarios a los ingenieros controlando el número de horas para hacer un reparto de tareas sin sobreasignaciones de trabajo.},
+    valor cliente = 5,
+    esfuerzo      = {3}{3},
+    iteracion     = 1,
+    prioridad     = 5,
+    comentarios   = {Funcionalidad básica de la aplicación.},
+},{%
+    identificador = S01.03,
+    enunciado     = {Como director de proyecto, ingeniero o cliente quiero listar los proyectos en los que estoy involucrado para poder acceder a ellos.},
+    valor cliente = 4,
+    esfuerzo      = {1}{1},
+    iteracion     = 1,
+    prioridad     = 4,
+    comentarios   = {},
+},{%
+    identificador = S01.04,
+    enunciado     = {Como director de proyecto o ingeniero quiero acceder a los requisitos y solicitudes asociadas a un proyecto para poder visualizarlos y comprobar si son correctos y completos.},
+    valor cliente = 5,
+    esfuerzo      = {3}{2},
+    iteracion     = 1,
+    prioridad     = 4,
+    comentarios   = {},
+},{%
+    identificador = S01.05,
+    enunciado     = {Como director de proyecto o ingeniero quiero poder añadir requisitos a mis proyectos siguiendo un formato estándar y desde la propia aplicación para unificar todos los requisitos.},
+    valor cliente = 5,
+    esfuerzo      = {2}{2},
+    iteracion     = 1,
+    prioridad     = 5,
+    comentarios   = {},
+},{%
+    identificador = S01.06,
+    enunciado     = {Como usuario quiero modificar requisitos de mis proyectos para completarlos o corregirlos en etapas posteriores a la creación.},
+    valor cliente = 2,
+    esfuerzo      = {2}{2},
+    iteracion     = 2,
+    prioridad     = 2,
+    comentarios   = {},
+},{%
+    identificador = S01.07,
+    enunciado     = {Como usuario quiero consultar los requisitos de mis proyectos en función de ciertos parámetros para poder encontrarlos más fácilmente.},
+    valor cliente = 1,
+    esfuerzo      = {1}{1},
+    iteracion     = 2,
+    prioridad     = 1,
+    comentarios   = {},
+},{%
+    identificador = S01.08,
+    enunciado     = {Como usuario quiero crear solicitudes una vez se haya hecho la primera etapa de deducción de requisitos para poder debatir la modificación o inclusión de nuevos requisitos en el proyecto.},
+    valor cliente = 3,
+    esfuerzo      = {2}{2},
+    iteracion     = 2,
+    prioridad     = 3,
+    comentarios   = {},
+},{%
+    identificador = S01.09,
+    enunciado     = {Como ingeniero quiero crear artefactos para poder añadir prototipos, diagramas de transición de estados, componentes, clases, planes de prueba, casos de prueba y otros para el desarrollo de los requisitos.},
+    valor cliente = 5,
+    esfuerzo      = {4}{3},
+    iteracion     = 1,
+    prioridad     = 5,
+    comentarios   = {},
+},{%
+    identificador = S01.10,
+    enunciado     = {Como ingeniero quiero asociar artefactos creados a requisitos de un proyecto para tenerlos agrupados en el requisito correspondiente.},
+    valor cliente = 4,
+    esfuerzo      = {1}{1},
+    iteracion     = 1,
+    prioridad     = 4,
+    comentarios   = {},
+},{%
+    identificador = S01.11,
+    enunciado     = {Como director de proyecto o ingeniero quiero listar los artefactos de un proyecto para consultarlos agrupados por requisitos.},
+    valor cliente = 3,
+    esfuerzo      = {1}{1},
+    iteracion     = 1,
+    prioridad     = 3,
+    comentarios   = {},
+},{%
+    identificador = S01.12,
+    enunciado     = {Como director de proyecto quiero crear un reporte básico con información de los requisitos del proyecto y su estado para mostrárselo al cliente y ver si la planificación se estará llevando a cabo.},
+    valor cliente = 5,
+    esfuerzo      = {4}{3},
+    iteracion     = 2,
+    prioridad     = 4,
+    comentarios   = {},
+}} % /ProductBacklog
 
+% ^^^========================================================================^^^
 \end{document}
-
