@@ -1,0 +1,74 @@
+\documentclass[a4paper, spanish]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{babel, parskip}
+\usepackage[colorlinks]{hyperref}
+
+\title{Documento de Analisis}
+\author{Autor McAutorson}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+No por mucho madrugar amanece mas temprano.
+No por mucho madrugar amanece mas temprano.
+No por mucho madrugar amanece mas temprano.
+No por mucho madrugar amanece mas temprano.
+No por mucho madrugar amanece mas temprano.
+No por mucho madrugar amanece mas temprano.
+No por mucho madrugar amanece mas temprano.
+\end{abstract}
+\vspace{\fill}
+\tableofcontents
+%% Estas dos lineas son temporales
+%\pagebreak
+\let\oldsection\section\renewcommand\section{\clearpage\oldsection}
+
+\section{Descripción del Sistema}
+Parrafo introductorio del sistema que se va a desarrollar.
+
+\subsection{Descripción y Motivación}
+Aqui se describe un poco mas a fondo el sistema, y la motivacion
+que guia el desarrollo.
+
+\subsection{Objetivos del Sistema}
+Que objetivos finales tiene el sistema.
+
+\subsection{Usuarios del Sistema}
+Que usuarios van a interactuar con el sistema.
+
+\section{Definición del Sistema}
+Parrafo introductorio a la seccion.
+
+\subsection{Modelado de Casos de Uso}
+Aqui iria un bonito diagrama UML de los casos de uso.
+
+\subsection{Requisitos del sistema}
+Para cada caso de uso, aqui se incluye un bloque que lo describe mas a fondo.
+\newcommand{\CasoDeUso}[1]{Aun no implementado}
+\CasoDeUso{%
+	identificador          = {...},
+	autor/modificacion     = {...},
+	fecha                  = {...},
+	actores involucrados   = {...},
+	resumen                = {...},
+	pre condiciones        = {...},
+	post condiciones       = {...},
+	% TODO: Revisar estos campos. No estan del todo claros en la plantilla.
+	usuario                = {...},
+	sistema                = {...},
+	caminos alternativos   = {...},
+	clases involucradas    = {...},
+}
+
+\section{Glosario}
+\newcommand{\Glosario}[1]{Aun no implementado}
+\Glosario{%
+	Termino 1 = {Definicion 1},
+	Termino 2 = {Definicion 2},
+	Termino 3 = {Definicion 3},
+}
+
+\end{document}

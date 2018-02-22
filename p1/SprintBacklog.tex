@@ -1,0 +1,37 @@
+\documentclass[a4paper, 12pt, spanish]{memoria}
+
+\usepackage{ings}
+\ConfigurarDocumento{
+    practica = {1}{Práctica 1: Sprint Backlog},
+}
+
+\begin{document}
+
+\section*{Sprint Backlog}
+
+\SprintBacklog[format=table]{%
+{%
+    identificador = TareasGlobales,
+    tareas = {
+        {%
+            diagrama de casos de uso = {1}{2},
+            descripcion del sistema = {3}{4},
+            hacer el diagrama de clases = {12}{13},
+            redaccion del documento de analisis = {12}{13},
+            redaccion del documento de diseño = {12}{13},
+            redaccion final = {14}{14},
+        }
+    },
+},{%
+    identificador = {CrearProyectos,CrearRequisitos,CrearProyectos,CrearArtefactos},
+    tareas = {
+        {%
+            requisito = {5}{5},
+            diagrama de secuencia = {6}{7},
+            maqueta = {8}{9},
+            revision = {10}{11},
+        }
+    },
+}} % /SprintBacklog
+
+\end{document}

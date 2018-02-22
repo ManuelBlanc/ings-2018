@@ -9,112 +9,178 @@
 
 \section*{Product Backlog}
 
-%% Formatos validos: list, tikz, table
-\ProductBacklog[format=table]{%
+%% Formatos validos: none, list, tikz, table
+\ProductBacklog[format=tikz]{%
 {%
-    identificador = S01.01,
-    enunciado     = {Como director de proyecto, ingeniero o cliente quiero autenticarme en el sistema para acceder a mis opciones y mis proyectos.},
+    identificador = Autenticacion,
+    enunciado     = {%
+        como = {director de proyecto, ingeniero o cliente},
+        quiero = {autenticarme en el sistema},
+        para = {acceder a mis opciones y mis proyectos},
+    },
     valor cliente = 5,
     esfuerzo      = {2}{3},
     iteracion     = 1,
     prioridad     = 5,
-    comentarios   = {Funcionalidad básica de la aplicación.},
+    comentarios   = {Funcionalidad básica de la aplicación},
 },{%
-    identificador = S01.02,
-    enunciado     = {Como director de proyecto quiero poder crear proyectos para añadir nuevos proyectos },
+    identificador = CrearProyectos,
+    enunciado     = {%
+        como = {director de proyecto},
+        quiero = {poder crear proyectos},
+        para = {añadir nuevos proyectos },
+    },
     valor cliente = 5,
     esfuerzo      = {1}{1},
     iteracion     = 1,
     prioridad     = 5,
-    comentarios   = {Funcionalidad básica de la aplicación.},
+    comentarios   = {Funcionalidad básica de la aplicación},
 },{%
-    identificador = S01.03,
-    enunciado     = {Como director de proyecto, ingeniero o cliente quiero listar los proyectos en los que estoy involucrado para poder acceder a ellos.},
+    identificador = ListarProyectos,
+    enunciado     = {%
+        como = {director de proyecto, ingeniero o cliente},
+        quiero = {listar los proyectos en los que estoy involucrado},
+        para = {poder acceder a ellos},
+    },
     valor cliente = 4,
     esfuerzo      = {1}{1},
     iteracion     = 1,
     prioridad     = 4,
     comentarios   = {},
 },{%
-    identificador = S01.04,
-    enunciado     = {Como director de proyecto o ingeniero quiero acceder a los requisitos y solicitudes asociadas a un proyecto para poder visualizarlos y comprobar si son correctos y completos.},
+    identificador = ListarRequisitos,
+    enunciado     = {%
+        como = {director de proyecto o ingeniero},
+        quiero = {acceder a los requisitos asociadas a un proyecto},
+        para = {poder visualizarlos y comprobar si son correctos y completos},
+    },
     valor cliente = 5,
     esfuerzo      = {3}{2},
     iteracion     = 1,
     prioridad     = 4,
     comentarios   = {},
 },{%
-    identificador = S01.05,
-    enunciado     = {Como director de proyecto o ingeniero quiero poder añadir requisitos a mis proyectos siguiendo un formato estándar y desde la propia aplicación para unificar todos los requisitos.},
+    identificador = ListarSolicitudes,
+    enunciado     = {%
+        como = {director de proyecto o ingeniero},
+        quiero = {acceder a las solicitudes asociadas a un proyecto},
+        para = {poder visualizarlos y comprobar si son correctos y completos},
+    },
+    valor cliente = 5,
+    esfuerzo      = {3}{2},
+    iteracion     = 1,
+    prioridad     = 4,
+    comentarios   = {},
+},{%
+    identificador = CrearRequisitos,
+    enunciado     = {%
+        como = {director de proyecto o ingeniero},
+        quiero = {poder añadir requisitos a mis proyectos siguiendo un formato estándar y desde la propia aplicación},
+        para = {unificar todos los requisitos},
+    },
     valor cliente = 5,
     esfuerzo      = {2}{2},
     iteracion     = 1,
     prioridad     = 5,
     comentarios   = {},
 },{%
-    identificador = S01.06,
-    enunciado     = {Como usuario quiero modificar requisitos de mis proyectos para completarlos o corregirlos en etapas posteriores a la creación.},
+    identificador = ModificarRequisitos,
+    enunciado     = {%
+        como = {usuario},
+        quiero = {modificar requisitos de mis proyectos},
+        para = {completarlos o corregirlos en etapas posteriores a la creación},
+    },
     valor cliente = 2,
     esfuerzo      = {2}{2},
     iteracion     = 2,
     prioridad     = 2,
     comentarios   = {},
 },{%
-    identificador = S01.07,
-    enunciado     = {Como usuario quiero consultar los requisitos de mis proyectos en función de ciertos parámetros para poder encontrarlos más fácilmente.},
+    identificador = FiltrarRequisitos,
+    enunciado     = {%
+        como = {usuario},
+        quiero = {consultar los requisitos de mis proyectos en función de ciertos parámetros},
+        para = {poder encontrarlos más fácilmente},
+    },
     valor cliente = 1,
     esfuerzo      = {1}{1},
     iteracion     = 2,
     prioridad     = 1,
     comentarios   = {},
 },{%
-    identificador = S01.08,
-    enunciado     = {Como usuario quiero crear solicitudes una vez se haya hecho la primera etapa de deducción de requisitos para poder debatir la modificación o inclusión de nuevos requisitos en el proyecto.},
+    identificador = CrearSolicitudes,
+    enunciado     = {%
+        como = {usuario},
+        quiero = {crear solicitudes una vez se haya hecho la primera etapa de deducción de requisitos},
+        para = {poder debatir la modificación o inclusión de nuevos requisitos en el proyecto},
+    },
     valor cliente = 3,
     esfuerzo      = {2}{2},
     iteracion     = 2,
     prioridad     = 3,
     comentarios   = {},
 },{%
-    identificador = S01.09,
-    enunciado     = {Como ingeniero quiero crear artefactos para poder añadir prototipos, diagramas de transición de estados, componentes, clases, planes de prueba, casos de prueba y otros para el desarrollo de los requisitos.},
+    identificador = CrearArtefactos,
+    enunciado     = {%
+        como = {ingeniero},
+        quiero = {crear artefactos para poder añadir prototipos, diagramas de transición de estados, componentes, clases, planes de prueba, casos de prueba y otros},
+        para = {el desarrollo de los requisitos},
+    },
     valor cliente = 5,
     esfuerzo      = {4}{3},
     iteracion     = 1,
     prioridad     = 5,
     comentarios   = {},
 },{%
-    identificador = S01.10,
-    enunciado     = {Como ingeniero quiero asociar artefactos creados a requisitos de un proyecto para tenerlos agrupados en el requisito correspondiente.},
+    identificador = AsignarArtefactos,
+    enunciado     = {%
+        como = {ingeniero},
+        quiero = {asociar artefactos creados a requisitos de un proyecto},
+        para = {tenerlos agrupados en el requisito correspondiente},
+    },
     valor cliente = 4,
     esfuerzo      = {1}{1},
     iteracion     = 1,
     prioridad     = 4,
     comentarios   = {},
 },{%
-    identificador = S01.11,
-    enunciado     = {Como director de proyecto o ingeniero quiero listar los artefactos de un proyecto para consultarlos agrupados por requisitos.},
+    identificador = ListarArtefactos,
+    enunciado     = {%
+        como = {director de proyecto o ingeniero},
+        quiero = {listar los artefactos de un proyecto},
+        para = {consultarlos agrupados por requisitos},
+    },
     valor cliente = 3,
     esfuerzo      = {1}{1},
     iteracion     = 1,
     prioridad     = 3,
     comentarios   = {},
 },{%
-    identificador = S01.12,
-    enunciado     = {Como director de proyecto quiero crear un reporte básico con información de los requisitos del proyecto y su estado para mostrárselo al cliente y ver si la planificación se estará llevando a cabo.},
+    identificador = CrearReporte,
+    enunciado     = {%
+        como = {director de proyecto},
+        quiero = {crear un reporte básico con información de los requisitos del proyecto y su estado},
+        para = {mostrárselo al cliente y ver si la planificación se estará llevando a cabo},
+    },
     valor cliente = 5,
     esfuerzo      = {4}{3},
     iteracion     = 2,
     prioridad     = 4,
     comentarios   = {},
 },{%
-    identificador = S01.13,
-    enunciado     = {Como director de proyecto quiero asignar horarios a los ingenieros controlando el número de horas para hacer un reparto de tareas sin sobreasignaciones de trabajo.},
+    identificador = AsignarHorarios,
+    enunciado     = {%
+        como = {director de proyecto},
+        quiero = {asignar horarios a los ingenieros controlando el número de horas},
+        para = {hacer un reparto de tareas sin sobreasignaciones de trabajo},
+    },
     valor cliente = 3,
     esfuerzo      = {3}{3},
     iteracion     = 2,
     prioridad     = 2,
     comentarios   = {},
 }} % /ProductBacklog
+
+Me mola \ref{CrearRequisitos}
 
 \end{document}
