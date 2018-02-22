@@ -1,2 +1,4 @@
 
 require '../latex/latexmkrc.pl'
+
+# vim: ft=perl

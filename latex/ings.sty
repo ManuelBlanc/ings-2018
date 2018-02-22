@@ -41,13 +41,35 @@
   /deck/.style = { /deck/card/.list = {#1}, },
 }
 
+
+\newcounter{reqId}
 \pgfqkeys{/ings/backlog}{
   /deck/card/add key/.list = {%
-    identificador, enunciado, valor cliente,
+    identificador, valor cliente,
     iteracion, prioridad, comentarios
+  },
+  enunciado/.code = {%
+    \pgfqkeys{/ings/backlog/enunciado}{%
+      como/.initial = {COMO},
+      quiero/.initial = {QUIERO},
+      para/.initial = {PARA},
+      #1,
+    }%
+    \pgfqkeys{/ings/backlog}{%
+      enunciado/.initial = {%
+        \textsc{como} \pgfkeysvalueof{/ings/backlog/enunciado/como}
+        \textsc{quiero} \pgfkeysvalueof{/ings/backlog/enunciado/quiero}
+        \textsc{para} \pgfkeysvalueof{/ings/backlog/enunciado/para}.
+      }
+    }
   },
   /deck/card/add 2 keys = {esfuerzo}{personas}{dias},
   format/.is choice,
+  make id/.code = {R\refstepcounter{reqId}\arabic{reqId}\label{\pgfkeysvalueof{/ings/backlog/identificador}}},
+  %
+  % Nulo
+  %
+  format/none/.style = { /deck/card/.code = {}, },
   %
   % Lista
   %
@@ -55,7 +77,7 @@
     /deck/card/.code = {%
       \pgfkeysalso{##1} % Visible desde toda la tabla
       \begin{tabular}{rp{11cm}}
-        \textbf{Identificador}      & \pgfkeysvalueof{/ings/backlog/identificador}              \\
+        \textbf{Identificador}      & \pgfkeysalso{make id}                                     \\
         \textbf{Enunciado}          & \pgfkeysvalueof{/ings/backlog/enunciado}                  %%
           {\itshape\color{darkgray}   \pgfkeysvalueof{/ings/backlog/comentarios}}               \\
         \textbf{Valor cliente}      & \pgfkeysvalueof{/ings/backlog/valor cliente}              \\
@@ -88,7 +110,7 @@
 
         \node (titulo)
           [anchor=north, block, align=center, fill=black!7]
-          {\scshape Tarea \pgfkeysvalueof{/ings/backlog/identificador}};
+          {\scshape Tarea \pgfkeysalso{make id}};
 
         \node (descripcion)
           [block, align=justify, below=0pt of titulo, text depth=14em]
@@ -134,7 +156,7 @@
       % Cada celda forma un grupo aislado, y no tenemos ninguna manera de definir
       % claves para toda la fila sin usar globales (que prefiero evitar).
       % Lo que hacemos es re-ejecutar las claves en cada celda.
-        \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/identificador}
+        \pgfkeysalso{##1}\pgfkeysalso{make id}
       & \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/enunciado}
         { \color{darkgray} \itshape \pgfkeysvalueof{/ings/backlog/comentarios} }
       & \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/valor cliente}
@@ -157,3 +179,7 @@
   }
   \endgroup
 }
+
+\newcommand{\Como}[1]{\textsc{Como} #1 \\}
+\newcommand{\Quiero}[1]{\textsc{quiero} #1 \\}
+\newcommand{\Para}[1]{\textsc{para} #1}
