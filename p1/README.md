@@ -3,16 +3,15 @@
 En esta practica realizamos un sprint de _3 semanas_ de duracion.
 
 ## Descripcion de los documentos
-En orden cronologico (teorico).
+En orden cronológico (teórico).
 
 #### Product Backlog
-Reune todas las historias de usuario, intentando que se mantenga que 1 historia ≈ 1 requisito.
-Cada historia se anota con una estimacion de esfuerzo y prioridades.
+Reune todas las historias de usuario, intentando que se mantenga una correspondencia de una historia por cada requisito. Cada historia se anota con una estimación de esfuerzo y prioridades.
 
 - Identificador
 - Enunciado
 - Valor para el cliente
-- Esfuerzo en personas - dia
+- Esfuerzo en personas - día
 - Iteracion (Sprint)
 - Prioridad
 - Comentarios
@@ -54,3 +53,4 @@ Individual e intransferible.
 | Sprint Review                                 | 0.7               |
 | Documentos de anaalisis y diseño              | 3.0               |
 | Calidad del material                          | 1.5               |
+
