@@ -1,202 +1,342 @@
 \documentclass[a4paper, 12pt, spanish]{memoria}
 
 \usepackage{ings}
-\ConfigurarDocumento{
-    practica = {1}{Práctica 1: Product Backlog},
+\AtBeginDocument{\section*{Product Backlog}}
+
+\newcounter{reqId}
+\pgfqkeys{/ings/backlog}{
+  /deck/card/add key/.list = {%
+    identificador, valor cliente,
+    iteracion, prioridad, comentarios
+  },
+  enunciado/.code = {%
+    \pgfqkeys{/ings/backlog/enunciado}{%
+      como/.initial = {COMO},
+      quiero/.initial = {QUIERO},
+      para/.initial = {PARA},
+      #1,
+    }%
+    \pgfqkeys{/ings/backlog}{%
+      enunciado/.initial = {%
+        \textsc{como} \pgfkeysvalueof{/ings/backlog/enunciado/como} \newline
+        \textsc{quiero} \pgfkeysvalueof{/ings/backlog/enunciado/quiero} \newline
+        \textsc{para} \pgfkeysvalueof{/ings/backlog/enunciado/para}.
+      }
+    }
+  },
+  /deck/card/add 2 keys = {esfuerzo}{personas}{dias},
+  format/.is choice,
+  make id/.code = {H\refstepcounter{reqId}\arabic{reqId}\label{\pgfkeysvalueof{/ings/backlog/identificador}}},
+  %
+  % Nulo
+  %
+  format/none/.style = { /deck/card/.code = {}, },
+  %
+  % Lista
+  %
+  format/list/.style = {%
+    /deck/card/.code = {%
+      \pgfkeysalso{##1} % Visible desde toda la tabla
+      \begin{tabular}{rp{11cm}}
+        \textbf{Identificador}      & \pgfkeysalso{make id}                                     \\
+        \textbf{Enunciado}          & \pgfkeysvalueof{/ings/backlog/enunciado}                  %%
+          {\itshape\color{darkgray}   \pgfkeysvalueof{/ings/backlog/comentarios}}               \\
+        \textbf{Valor cliente}      & \pgfkeysvalueof{/ings/backlog/valor cliente}              \\
+        \textbf{Esfuerzo}           & \Plural{/ings/backlog/esfuerzo/personas}{persona} $\cdot$
+                                      \Plural{/ings/backlog/esfuerzo/dias}{dia}                 \\
+        \textbf{Iteracion}          & \pgfkeysvalueof{/ings/backlog/iteracion}                  \\
+        \textbf{Prioridad}          & \pgfkeysvalueof{/ings/backlog/prioridad}                  \\
+      \end{tabular}
+      \vspace{0.33cm}\newline
+      \rule{\textwidth}{1pt}\vspace{0.33cm}
+      \newline
+    }
+  },
+  %
+  % TikZ
+  %
+  format/tikz/.style = {%
+    /deck/card/.code = {%
+      \pgfkeysalso{##1}%
+      \def\CardWidth{0.5\textwidth}%
+      \begin{tikzpicture}[%[anchor = base, baseline] % =(X.base)
+        ystep=-1cm,
+        score/.style = {%
+          draw=####1, fill=####1!10, thick, inner sep=0pt, outer sep=0pt, minimum height=7mm, minimum width=10mm,
+        },
+        every label/.style = { font = \scshape },
+        block/.style = {%
+          draw=black, anchor=south,text width=\CardWidth-18pt, inner sep = 9pt,
+        }]
+
+        \node (titulo)
+          [anchor=north, block, align=center, fill=black!7]
+          {\scshape Historia \pgfkeysalso{make id}};
+
+        \node (descripcion)
+          [block, align=justify, below=0pt of titulo, text depth=14em]
+          {\pgfkeysvalueof{/ings/backlog/enunciado} \newline
+           {\itshape\color{darkgray}\pgfkeysvalueof{/ings/backlog/comentarios}}};
+
+        \node (puntuacion) [above=30pt of descripcion.south] {};
+
+        \node (valor)
+          [score={yellow}, label={left:Valoración}, above left=0pt of puntuacion]
+          {\pgfkeysvalueof{/ings/backlog/valor cliente}};
+
+        \node (esfuerzo)
+          [score={green}, label=left:Esfuerzo, below left=0pt of puntuacion]
+          { \pgfkeysvalueof{/ings/backlog/esfuerzo/personas}
+          / \pgfkeysvalueof{/ings/backlog/esfuerzo/dias}};
+
+        \node (iteracion)
+          [score={blue}, label=right:Iteración,, above right=0pt of puntuacion]
+          {\pgfkeysvalueof{/ings/backlog/iteracion}};
+
+        \node (prioridad)
+          [score={red}, label=right:Prioridad,, below right=0pt of puntuacion]
+          {\pgfkeysvalueof{/ings/backlog/prioridad}};
+
+      \end{tikzpicture}\hskip0pt%
+    }
+  },
+  %
+  % Tabla
+  %
+  format/table/.style = {%
+    /deck/.add code = {%
+      \tabular{|r|p{9.2cm}|l|l|l|l|}
+        \hline
+        Id. & Enunciado y comentarios & \multicolumn{4}{c|}{Valoraciones}  \\ \cline{3-6}
+            &                         & Val & Esf & Ite & Pri              \\
+        \hline
+    }{%
+      &&&&&\\\hline\endtabular
+    },
+    /deck/card/.code = {%
+      % Cada celda forma un grupo aislado, y no tenemos ninguna manera de definir
+      % claves para toda la fila sin usar globales (que prefiero evitar).
+      % Lo que hacemos es re-ejecutar las claves en cada celda.
+        \pgfkeysalso{##1}\pgfkeysalso{make id}
+      & \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/enunciado}
+        { \color{darkgray} \itshape \pgfkeysvalueof{/ings/backlog/comentarios} }
+      & \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/valor cliente}
+      & \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/esfuerzo/personas}
+                 $\cdot$ \pgfkeysvalueof{/ings/backlog/esfuerzo/dias}
+      & \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/iteracion}
+      & \pgfkeysalso{##1}\pgfkeysvalueof{/ings/backlog/prioridad} \\%
+    },
+  }
+}
+
+%% \ProductBacklog. Recibe un unico argumento, un conjunto de
+%% claves de pgfkeys que tendra varias veces el comando `add element`
+\NewDocumentCommand{\ProductBacklog}{O{}m}{%
+  \begingroup
+  \pgfqkeys{/ings/backlog}{%
+    format=list,
+    #1, % Extra opts.
+    /deck = {#2},
+  }
+  \endgroup
 }
 
 \begin{document}
 
-\section*{Product Backlog}
-
 %% Formatos validos: none, list, tikz, table
 \ProductBacklog[format=tikz]{%
 {%
-    identificador = Autenticacion,
-    enunciado     = {%
-        como = {director de proyecto, ingeniero o cliente},
-        quiero = {autenticarme en el sistema},
-        para = {acceder a mis opciones y mis proyectos},
-    },
-    valor cliente = 5,
-    esfuerzo      = {2}{3},
-    iteracion     = 1,
-    prioridad     = 5,
-    comentarios   = {Funcionalidad básica de la aplicación},
+  identificador = Autenticacion,
+  enunciado     = {%
+    como = {director de proyecto, ingeniero o cliente},
+    quiero = {autenticarme en el sistema},
+    para = {acceder a mis opciones y mis proyectos},
+  },
+  valor cliente = 5,
+  esfuerzo      = {2}{3},
+  iteracion     = 1,
+  prioridad     = 5,
+  comentarios   = {Funcionalidad básica de la aplicación},
 },{%
-    identificador = CrearProyectos,
-    enunciado     = {%
-        como = {director de proyecto},
-        quiero = {poder crear proyectos},
-        para = {añadir nuevos proyectos },
-    },
-    valor cliente = 5,
-    esfuerzo      = {1}{1},
-    iteracion     = 1,
-    prioridad     = 5,
-    comentarios   = {Funcionalidad básica de la aplicación},
+  identificador = CrearProyectos,
+  enunciado     = {%
+    como = {director de proyecto},
+    quiero = {poder crear proyectos},
+    para = {añadir nuevos proyectos},
+  },
+  valor cliente = 5,
+  esfuerzo      = {1}{1},
+  iteracion     = 1,
+  prioridad     = 5,
+  comentarios   = {Funcionalidad básica de la aplicación},
 },{%
-    identificador = ListarProyectos,
-    enunciado     = {%
-        como = {director de proyecto, ingeniero o cliente},
-        quiero = {listar los proyectos en los que estoy involucrado},
-        para = {poder acceder a ellos},
-    },
-    valor cliente = 4,
-    esfuerzo      = {1}{1},
-    iteracion     = 1,
-    prioridad     = 4,
-    comentarios   = {},
+  identificador = ListarProyectos,
+  enunciado     = {%
+    como = {director de proyecto, ingeniero o cliente},
+    quiero = {listar los proyectos en los que estoy involucrado},
+    para = {poder acceder a ellos},
+  },
+  valor cliente = 4,
+  esfuerzo      = {1}{1},
+  iteracion     = 1,
+  prioridad     = 4,
+  comentarios   = {},
 },{%
-    identificador = ListarRequisitos,
-    enunciado     = {%
-        como = {director de proyecto o ingeniero},
-        quiero = {acceder a los requisitos asociadas a un proyecto},
-        para = {poder visualizarlos y comprobar si son correctos y completos},
-    },
-    valor cliente = 5,
-    esfuerzo      = {3}{2},
-    iteracion     = 1,
-    prioridad     = 4,
-    comentarios   = {},
+  identificador = ListarRequisitos,
+  enunciado     = {%
+    como = {director de proyecto o ingeniero},
+    quiero = {acceder a los requisitos asociadas a un proyecto},
+    para = {poder visualizarlos y comprobar si son correctos y completos},
+  },
+  valor cliente = 5,
+  esfuerzo      = {3}{2},
+  iteracion     = 1,
+  prioridad     = 4,
+  comentarios   = {},
 },{%
-    identificador = ListarSolicitudes,
-    enunciado     = {%
-        como = {director de proyecto o ingeniero},
-        quiero = {acceder a las solicitudes asociadas a un proyecto},
-        para = {poder visualizarlos y comprobar si son correctos y completos},
-    },
-    valor cliente = 5,
-    esfuerzo      = {3}{2},
-    iteracion     = 1,
-    prioridad     = 4,
-    comentarios   = {},
+  identificador = ListarSolicitudes,
+  enunciado     = {%
+    como = {director de proyecto o ingeniero},
+    quiero = {acceder a las solicitudes asociadas a un proyecto},
+    para = {poder visualizarlos y comprobar si son correctos y completos},
+  },
+  valor cliente = 5,
+  esfuerzo      = {3}{2},
+  iteracion     = 1,
+  prioridad     = 4,
+  comentarios   = {},
 },{%
-    identificador = CrearRequisitos,
-    enunciado     = {%
-        como = {director de proyecto o ingeniero},
-        quiero = {poder añadir requisitos a mis proyectos siguiendo un formato estándar y desde la propia aplicación},
-        para = {unificar todos los requisitos},
-    },
-    valor cliente = 5,
-    esfuerzo      = {2}{2},
-    iteracion     = 1,
-    prioridad     = 5,
-    comentarios   = {},
+  identificador = CrearRequisitos,
+  enunciado     = {%
+    como = {director de proyecto o ingeniero},
+    quiero = {poder añadir requisitos a mis proyectos siguiendo un formato estándar y desde la propia aplicación},
+    para = {unificar todos los requisitos},
+  },
+  valor cliente = 5,
+  esfuerzo      = {2}{2},
+  iteracion     = 1,
+  prioridad     = 5,
+  comentarios   = {},
 },{%
-    identificador = ModificarRequisitos,
-    enunciado     = {%
-        como = {usuario},
-        quiero = {modificar requisitos de mis proyectos},
-        para = {completarlos o corregirlos en etapas posteriores a la creación},
-    },
-    valor cliente = 2,
-    esfuerzo      = {2}{2},
-    iteracion     = 2,
-    prioridad     = 2,
-    comentarios   = {},
+  identificador = ModificarRequisitos,
+  enunciado     = {%
+    como = {usuario},
+    quiero = {modificar requisitos de mis proyectos},
+    para = {completarlos o corregirlos en etapas posteriores a la creación},
+  },
+  valor cliente = 2,
+  esfuerzo      = {2}{2},
+  iteracion     = 2,
+  prioridad     = 2,
+  comentarios   = {},
 },{%
-    identificador = FiltrarRequisitos,
-    enunciado     = {%
-        como = {usuario},
-        quiero = {consultar los requisitos de mis proyectos en función de ciertos parámetros},
-        para = {poder encontrarlos más fácilmente},
-    },
-    valor cliente = 1,
-    esfuerzo      = {1}{1},
-    iteracion     = 2,
-    prioridad     = 1,
-    comentarios   = {},
+  identificador = FiltrarRequisitos,
+  enunciado     = {%
+    como = {usuario},
+    quiero = {consultar los requisitos de mis proyectos en función de ciertos parámetros},
+    para = {poder encontrarlos más fácilmente},
+  },
+  valor cliente = 1,
+  esfuerzo      = {1}{1},
+  iteracion     = 2,
+  prioridad     = 1,
+  comentarios   = {},
 },{%
-    identificador = CrearSolicitudes,
-    enunciado     = {%
-        como = {usuario},
-        quiero = {crear solicitudes una vez se haya hecho la primera etapa de deducción de requisitos},
-        para = {poder debatir la modificación o inclusión de nuevos requisitos en el proyecto},
-    },
-    valor cliente = 3,
-    esfuerzo      = {2}{2},
-    iteracion     = 2,
-    prioridad     = 3,
-    comentarios   = {},
+  identificador = CrearSolicitudes,
+  enunciado     = {%
+    como = {usuario},
+    quiero = {crear solicitudes una vez se haya hecho la primera etapa de deducción de requisitos},
+    para = {poder debatir la modificación o inclusión de nuevos requisitos en el proyecto},
+  },
+  valor cliente = 3,
+  esfuerzo      = {2}{2},
+  iteracion     = 2,
+  prioridad     = 3,
+  comentarios   = {},
 },{%
-    identificador = CrearArtefactos,
-    enunciado     = {%
-        como = {ingeniero},
-        quiero = {crear artefactos para poder añadir prototipos, diagramas de transición de estados, componentes, clases, planes de prueba, casos de prueba y otros},
-        para = {el desarrollo de los requisitos},
-    },
-    valor cliente = 5,
-    esfuerzo      = {4}{3},
-    iteracion     = 1,
-    prioridad     = 5,
-    comentarios   = {},
+  identificador = CrearArtefactos,
+  enunciado     = {%
+    como = {ingeniero},
+    quiero = {crear artefactos para poder añadir prototipos, diagramas de transición de estados, componentes, clases, planes de prueba, casos de prueba y otros},
+    para = {el desarrollo de los requisitos},
+  },
+  valor cliente = 5,
+  esfuerzo      = {4}{3},
+  iteracion     = 1,
+  prioridad     = 5,
+  comentarios   = {},
 },{%
-    identificador = AsignarArtefactos,
-    enunciado     = {%
-        como = {ingeniero},
-        quiero = {asociar artefactos creados a requisitos de un proyecto},
-        para = {tenerlos agrupados en el requisito correspondiente},
-    },
-    valor cliente = 4,
-    esfuerzo      = {1}{1},
-    iteracion     = 1,
-    prioridad     = 4,
-    comentarios   = {},
+  identificador = AsignarArtefactos,
+  enunciado     = {%
+    como = {ingeniero},
+    quiero = {asociar artefactos creados a requisitos de un proyecto},
+    para = {tenerlos agrupados en el requisito correspondiente},
+},
+  valor cliente = 4,
+  esfuerzo      = {1}{1},
+  iteracion     = 1,
+  prioridad     = 4,
+  comentarios   = {},
 },{%
-    identificador = ListarArtefactos,
-    enunciado     = {%
-        como = {director de proyecto o ingeniero},
-        quiero = {listar los artefactos de un proyecto},
-        para = {consultarlos agrupados por requisitos},
-    },
-    valor cliente = 3,
-    esfuerzo      = {1}{1},
-    iteracion     = 1,
-    prioridad     = 3,
-    comentarios   = {},
+  identificador = ListarArtefactos,
+  enunciado     = {%
+    como = {director de proyecto o ingeniero},
+    quiero = {listar los artefactos de un proyecto},
+    para = {consultarlos agrupados por requisitos},
+  },
+  valor cliente = 3,
+  esfuerzo      = {1}{1},
+  iteracion     = 1,
+  prioridad     = 3,
+  comentarios   = {},
 },{%
-    identificador = CrearReporte,
-    enunciado     = {%
-        como = {director de proyecto},
-        quiero = {crear un reporte básico con información de los requisitos del proyecto y su estado},
-        para = {mostrárselo al cliente y ver si la planificación se estará llevando a cabo},
-    },
-    valor cliente = 5,
-    esfuerzo      = {4}{3},
-    iteracion     = 2,
-    prioridad     = 4,
-    comentarios   = {},
+  identificador = CrearReporte,
+  enunciado     = {%
+    como = {director de proyecto},
+    quiero = {crear un reporte básico con información de los requisitos del proyecto y su estado},
+    para = {mostrárselo al cliente y ver si la planificación se estará llevando a cabo},
+  },
+  valor cliente = 5,
+  esfuerzo      = {4}{3},
+  iteracion     = 2,
+  prioridad     = 4,
+  comentarios   = {},
 },{%
-    identificador = AsignarHorarios,
-    enunciado     = {%
-        como = {director de proyecto},
-        quiero = {asignar horarios a los ingenieros controlando el número de horas},
-        para = {hacer un reparto de tareas sin sobreasignaciones de trabajo},
-    },
-    valor cliente = 3,
-    esfuerzo      = {3}{3},
-    iteracion     = 2,
-    prioridad     = 2,
-    comentarios   = {},
+  identificador = AsignarHorarios,
+  enunciado     = {%
+    como = {director de proyecto},
+    quiero = {asignar horarios a los ingenieros controlando el número de horas},
+    para = {hacer un reparto de tareas sin sobreasignaciones de trabajo},
+  },
+  valor cliente = 3,
+  esfuerzo      = {3}{3},
+  iteracion     = 2,
+  prioridad     = 2,
+  comentarios   = {},
 },{%
-    identificador = S01.14,
-    enunciado     = {Como jefe de proyecto quiero poder aceptar o rechazar solicitudes  de inclusión de requisitos para incluir o rechazar las tareas solicitadas por el cliente.},
-    valor cliente = 3,
-    esfuerzo      = {2}{3},
-    iteracion     = 2,
-    prioridad     = 1,
-    comentarios   = {},
+  identificador = Revisarsolicitudes,
+  enunciado     = {%
+    como = {jefe de proyecto},
+    quiero = {poder aceptar o rechazar solicitudes de inclusión de requisitos},
+    para = {incluir o rechazar las tareas solicitadas por el cliente.},
+  },
+  valor cliente = 3,
+  esfuerzo      = {2}{3},
+  iteracion     = 2,
+  prioridad     = 1,
+  comentarios   = {},
 },{%
-    identificador = S01.15,
-    enunciado     = {Como jefe de proyecto quiero añadir requisitos a mis proyectos para posteriormente asignar tareas a los ingenieros},
-    valor cliente = 3,
-    esfuerzo      = {2}{2},
-    iteracion     = 2,
-    prioridad     = 3,
-    comentarios   = {},
+  identificador = CrearRequisitos2,
+  enunciado     = {%
+    como = {jefe de proyecto},
+    quiero = {añadir requisitos a mis proyectos},
+    para = {posteriormente asignar tareas a los ingenieros},
+  },
+  valor cliente = 3,
+  esfuerzo      = {2}{2},
+  iteracion     = 2,
+  prioridad     = 3,
+  comentarios   = {},
 }} % /ProductBacklog
-
-Me mola \ref{CrearRequisitos}
 
 \end{document}

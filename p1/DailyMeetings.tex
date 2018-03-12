@@ -2,54 +2,88 @@
 
 \usepackage{ings}
 
-\newcommand{\DailyMeeting}[1]{Esto aun no esta implementado}
-
 \begin{document}
 
-\section*{Reuniones diarias}
-
-\DailyMeeting{
-fecha = {2018-02-22},
-lugar = {Aula 12},
-acta = {%
-Manu es el secretario de esta sesion.
-
-David pregunta si los diagramas de clase son independientes.
-
-Antes de ponerse a trabajar el equipo revisa el Product/Sprint Backlog.
-Pablo reparte las tareas.
-
-Pablo pregunta si solo se ponen las historias del primer sprint, o todo.
-
-El equipo decide
-Hace falta hacer un diagrama de uso para cada historia de usuario?
-Hace falta los requisistos para la aplicacion en general, o por historia
-
-En los diagramas de clase como se hacian relaciones de N a N.
-EL euqipo revisa la documetnacion de UML.
-
-
-Empezamos a pensar el diagrama de clases.
-Pablo llama la atencion a que un Jefe de Proyecto no es una clase.
-Cada proyecto puede tener un jefe de proyecto.
-David lo formula en formato Entidad-Relacion.
-Ferpi indica que puede haber dos tipos de JdP:
-	- Como posicion en la empresa
-	- El JdP de un proyecto
-Jdp es un ingeniero especial
-
-David dice que solo pondria Cliente o Ingeniero
-
-Por simplificar Catalina nos dice crear las 3 clases: Cliente, Ingeniero y JdP.
-
-Jari pregunta si alguien sabe UML.
-Pregunta si hay que poner al admin.
-
-},
-% Cada miembro del equipo debe responder las siguientes preguntas:
+% En los DM, cada miembro del equipo debe responder las siguientes preguntas:
 % - ¿Qué hice ayer que ayudó al equipo de desarrollo a lograr el objetivo del Sprint?
 % - ¿Qué haré hoy para ayudar al equipo de desarrollo a lograr el objetivo del Sprint?
 % - ¿Veo algún impedimento que evite que el equipo de desarrollo o yo logremos el objetivo del Sprint?
-} % /DailyMeeting
+
+\section*{Reuniones diarias}
+
+\subsection*{Reunión del 2018-02-22}
+Esta reunión se llevo a cabo en el laboratorio 12. El secretario fue Manuel.
+
+\paragraph{Discusión general}
+\begin{itemize}
+\item David pregunta si los diagramas de clase son independientes.
+\item Pablo realiza un reparto preliminar de las tareas.
+\item Pablo pregunta si solo se ponen las historias del primer sprint, o todo.
+\item Antes de ponerse a trabajar el equipo revisa el Product/Sprint Backlog.
+\item El equipo discute las siguientes cuestiones:
+  \begin{itemize}
+  \item Hace falta hacer un diagrama de uso para cada historia de usuario?
+  \item Hace falta los requisitos para la aplicación en general, o por historia
+  \end{itemize}
+\item Empezamos a pensar el diagrama de clases.
+\item Pablo llama la atención de que ser Jefe de Proyecto es una relación mas que una clase.
+\item Cada proyecto puede tener un jefe de proyecto.
+\item David formula el sistema en formato Entidad-Relación.
+\item Ferpi comenta que un jefe puede ser de toda la empresa o de solo un proyecto.
+\item David dice que solo pondría Cliente o Ingeniero, teniendo la relación ``jefe de''.
+\item Catalina nos recomiendo crear 3 clases Cliente, Ingeniero y Jefe para simplificar.
+\item Jari hace el diagrama de casos de uso.
+\item Jari pregunta si hay que poner al admin.
+\item Ferpi escribe el product backlog.
+\end{itemize}
+
+\subsection*{Reunión del 2018-03-01}
+Esta reunión se llevo a cabo en el laboratorio 12. El secretario fue Manuel.
+
+\paragraph{¿Qué ha hecho el equipo?}
+\begin{itemize}
+    \item Ferpi los requisitos
+    \item Jari diagrama de uso
+    \item Nevado resuelto dependencias
+    \item Pablo diagrama de clases
+    \item Manu ha hecho requisito y la descripción
+\end{itemize}
+
+\paragraph{¿Qué vamos a hacer?}
+\begin{itemize}
+        \item Manu hace \LaTeX.
+        \item Jari hace maquetas.
+        \item Nevado hace secuencia.
+        \item Pablo hace maquetas.
+        \item Ferpi va a redactar.
+\end{itemize}
+\paragraph{¿Qué impedimentos hay?}
+\begin{itemize}
+  \item Examen de EDP a la vuelta de la esquina.
+  \item Resulta que la dependencia de tareas era al revés: \newline
+    Hay que hacer primero el diagrama de clases y \textit{después} el de secuencia.
+\end{itemize}
+
+
+\subsection*{Reunión del 2018-03-08}
+Esta reunión se llevo a cabo en el laboratorio 12. El secretario fue Manuel.
+
+\paragraph{¿Qué ha hecho el equipo?}
+\begin{itemize}
+  \item Jari ha terminado el diagrama de casos de uso.
+  \item Pablo ha terminado diagrama de clases.
+  \item Manu ha hecho requisitos y la descripción.
+  \item Ferpi ha revisado los requisitos.
+  \item Jari y Pablo hicieron las maquetas.
+\end{itemize}
+
+\paragraph{Que vamos a hacer?}
+\begin{itemize}
+        \item Manu va a revisar el \LaTeX{} de los documentos.
+        \item Jari va a revisar los requisitos.
+        \item Nevado va a revisar las maquetas.
+        \item Pablo va a revisar los diagramas de secuencia. 
+        \item Ferpi va a revisar el diagrama de clases y de casos de uso.
+\end{itemize}
 
 \end{document}

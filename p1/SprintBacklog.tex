@@ -1,37 +1,69 @@
 \documentclass[a4paper, 12pt, spanish]{memoria}
-
+\usepackage{pgfgantt}
 \usepackage{ings}
-\ConfigurarDocumento{
-    practica = {1}{Práctica 1: Sprint Backlog},
+
+\newcommand\Dganttbar[4]{%
+% Superponemos dos barras.
+% 1. Una para la etiqueta de la izquierda.
+% 2. Para la etiqueta de la barra.
+\ganttbar{#1}{#3}{#4}%
+\ganttbar[inline,bar label font=\color{teal}\tiny]{#2}{#3}{#4}%
 }
 
+\AtBeginDocument{\section*{Sprint Backlog}}
 \begin{document}
 
-\section*{Sprint Backlog}
-
-\SprintBacklog[format=table]{%
-{%
-    identificador = TareasGlobales,
-    tareas = {
-        {%
-            diagrama de casos de uso = {1}{2},
-            descripcion del sistema = {3}{4},
-            hacer el diagrama de clases = {12}{13},
-            redaccion del documento de analisis = {12}{13},
-            redaccion del documento de diseño = {12}{13},
-            redaccion final = {14}{14},
-        }
-    },
-},{%
-    identificador = {CrearProyectos,CrearRequisitos,CrearProyectos,CrearArtefactos},
-    tareas = {
-        {%
-            requisito = {5}{5},
-            diagrama de secuencia = {6}{7},
-            maqueta = {8}{9},
-            revision = {10}{11},
-        }
-    },
-}} % /SprintBacklog
+\newganttlinktypealias{mlt}{f-s}
+\setganttlinklabel{mlt}{}
+\centering
+\begin{ganttchart}[%
+  vgrid,
+  y unit chart=0.5cm,
+]{1}{14}
+  \gantttitle{Primer Sprint}{14} \\
+  \gantttitlelist{1,...,14}{1} \\
+  \Dganttbar{Diagrama de casos de uso}{5}{1}{2} \\
+  \Dganttbar{Descripción del sistema}{5}{3}{4} \\
+  %
+  \ganttgroup{CrearProyectos}{5}{11} \\
+  \Dganttbar{Especificación del requisito}{1}{5}{5} \\
+  \Dganttbar{Diagrama de secuencia}{1}{6}{7} \\
+  \Dganttbar{Maqueta}{1}{8}{9} \\
+  \Dganttbar{Revisión}{1}{10}{11} \\
+  %
+  \ganttgroup{CrearRequisitos}{5}{11} \\
+  \Dganttbar{Especificación del requisito}{1}{5}{5} \\
+  \Dganttbar{Diagrama de secuencia}{1}{6}{7} \\
+  \Dganttbar{Maqueta}{1}{8}{9} \\
+  \Dganttbar{Revisión}{1}{10}{11} \\
+  %
+  \ganttgroup{CrearSolicitudes}{5}{11} \\
+  \Dganttbar{Especificación del requisito}{1}{5}{5} \\
+  \Dganttbar{Diagrama de secuencia}{1}{6}{7} \\
+  \Dganttbar{Maqueta}{1}{8}{9} \\
+  \Dganttbar{Revisión}{1}{10}{11} \\
+  %
+  \ganttgroup{CrearArtefactos}{5}{11} \\
+  \Dganttbar{Especificación del requisito}{1}{5}{5} \\
+  \Dganttbar{Diagrama de secuencia}{1}{6}{7} \\
+  \Dganttbar{Maqueta}{1}{8}{9} \\
+  \Dganttbar{Revisión}{1}{10}{11} \\
+  %
+  \Dganttbar{Diagrama de clases}{2}{12}{13} \\
+  \Dganttbar{Redacción del doc. de análisis}{1}{12}{13} \\
+  \Dganttbar{Redacción del doc. de diseño}{1}{12}{13} \\
+  \Dganttbar{Revisión final}{5}{14}{14}
+  %
+  %\ganttlink{elem1}{elem3}
+  %\ganttlink{elem1}{elem8}
+  %\ganttlink{elem1}{elem13}
+  %\ganttlink{elem1}{elem18}
+  %%
+  %\ganttlink{elem6}{elem22} % 11 16 21
+  %\ganttlink{elem6}{elem23}
+  %\ganttlink{elem6}{elem24}
+  %%
+  %\ganttlink{elem22}{elem25}
+\end{ganttchart}
 
 \end{document}
