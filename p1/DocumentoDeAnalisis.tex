@@ -8,14 +8,15 @@
 \usepackage{tikz}
 \usetikzlibrary{babel, chains}
 
-\title{Projectizer \\ Documento de Análisis del Sistema SAR}
+\title{Projectizer (SAR)\\ Documento de Análisis}
 \author{Version 1.0 \\ M. Blanc, L.C. Jariego, P. Marcos, F. Martín, D. Nevado}
 
 \begin{document}
 
 \maketitle
 \begin{abstract}
-Describimos \textit{projectizer}, un Sistema de Análisis de Requisitos (SAR) cuyo objetivo es servir de plataforma de gestión de requisitos para empresas de desarrollo de software.
+Este documento comprende la etapa de analisis de \textit{Projectizer}, un Sistema de Análisis de Requisitos (SAR) cuyo objetivo es servir de herramienta de gestión de requisitos en proyectos. La herramienta esta destinada a empresas de desarrollo de software que adopten la metodología Scrum, o similar.
+
 \end{abstract}
 \vspace{\fill}
 \tableofcontents
@@ -39,7 +40,6 @@ cambios sobre la especificación de requisitos.
 
 \subsection{Usuarios del Sistema}\label{sec:usuarios}
 Hemos identificado 3 tipos diferentes de usuarios del sistema:
-Va a haber tres tipos de usuarios:
 \begin{description}
   \item [Cliente] un cliente de la empresa que contrata un proyecto.
   \item [Jefe de Proyecto] el encargado en la empresa de gestionar proyectos.
@@ -47,11 +47,11 @@ Va a haber tres tipos de usuarios:
 \end{description}
 
 \section{Definición del Sistema}
-Ya descrito el sistema a grandes rasgos, en esta seccion se concretan algunos
+Ya descrito el sistema a grandes rasgos, en esta sección se concretan algunos
 aspectos del sistema.
 
 \subsection{Modelado de Casos de Uso}
-\begin{figure}[h]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=0.9\textwidth]{diagramas/diagrama-casos-uso.png}
 \caption{Diagrama de casos de uso}\label{fig:casosdeuso}
@@ -130,7 +130,7 @@ En esta sección, se recogen los requisitos del sistema de manera más concreta.
   clases involucradas    = {JefeDeProyecto, Proyecto},
 }
 
-\CasoDeUso{%
+\pagebreak\CasoDeUso{%
   identificador          = {CrearRequisitos},
   autor                  = {Fernando Martín},
   fecha                  = {2018-03-01},
@@ -152,7 +152,7 @@ En esta sección, se recogen los requisitos del sistema de manera más concreta.
   clases involucradas    = {JefeDeProyecto, Proyecto, Requisito},
 }
 
-\CasoDeUso{%
+\pagebreak\CasoDeUso{%
   identificador          = {CrearSolicitudes},
   autor                  = {Fernando Martín},
   fecha                  = {2018-03-01},
@@ -174,7 +174,7 @@ En esta sección, se recogen los requisitos del sistema de manera más concreta.
   clases involucradas    = {Cliente, Solicitud, Proyecto},
 }
 %
-\CasoDeUso{%
+\pagebreak\CasoDeUso{%
   identificador          = {CrearArtefactos},
   autor                  = {Fernando Martín},
   fecha                  = {2018-03-01},
